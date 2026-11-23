@@ -10,7 +10,7 @@ stok takip aracıdır.
 
 ## İş takip panosu
 
-👉 Pano: <PANO_LINKINI_BURAYA_YAPIŞTIR>
+👉 Pano: https://github.com/users/esrapolat4129-spec/projects/1
 
 ## Kurulum ve çalıştırma
 
@@ -37,7 +37,11 @@ pytest
 
 ### 1. Ürün ekleme (#2)
 
-_Geliştirme devam ediyor._
+1. "Ürün ekle" formunda ad `Vida M8`, stok `120`, kritik seviye `20` girip **Ekle**'ye basın.
+   → Yeşil "eklendi" mesajı çıkar ve ürün tabloda görünür.
+2. Adı boş bırakıp **Ekle**'ye basın. → "Ürün adı boş olamaz." hatası çıkar, tabloya bir şey eklenmez.
+3. Stok alanına `-5` yazıp ekleyin. → "Stok miktarı negatif olamaz." hatası çıkar.
+4. Tekrar `vida m8` adıyla ürün eklemeyi deneyin. → "zaten kayıtlı" hatası çıkar.
 
 ### 2. Kritik stok uyarısı (#3)
 
