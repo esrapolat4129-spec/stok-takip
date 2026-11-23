@@ -1,6 +1,6 @@
 import streamlit as st
 
-from stok import StokHatasi, urun_ekle
+from stok import StokHatasi, kritik_mi, kritik_urunler, urun_ekle
 
 st.set_page_config(page_title="Basit Stok Takibi", page_icon="📦")
 st.title("📦 Basit Stok Takibi")
@@ -9,6 +9,11 @@ st.title("📦 Basit Stok Takibi")
 # ürün listesini kaybetmemek için session_state'te tutuyoruz.
 if "urunler" not in st.session_state:
     st.session_state.urunler = []
+
+# Uyarılar sayfanın en üstünde görünsün diye yer ayırıyoruz.
+# İçini, form işlendikten SONRA dolduruyoruz; böylece yeni eklenen
+# kritik ürün de aynı anda uyarıda görünür.
+uyari_alani = st.container()
 
 st.header("Ürün ekle")
 with st.form("urun_ekle_formu", clear_on_submit=True):
@@ -24,11 +29,23 @@ if gonder:
     except StokHatasi as hata:
         st.error(str(hata))
 
+with uyari_alani:
+    for u in kritik_urunler(st.session_state.urunler):
+        st.warning(
+            f"⚠️ **{u.ad}** kritik seviyede: stok {u.stok}, "
+            f"kritik seviye {u.kritik_seviye}. Sipariş vermeyi düşünün."
+        )
+
 st.header("Ürün listesi")
 if st.session_state.urunler:
     st.table(
         [
-            {"Ürün": u.ad, "Stok": u.stok, "Kritik seviye": u.kritik_seviye}
+            {
+                "Ürün": u.ad,
+                "Stok": u.stok,
+                "Kritik seviye": u.kritik_seviye,
+                "Durum": "⚠️ Kritik" if kritik_mi(u) else "✅ Yeterli",
+            }
             for u in st.session_state.urunler
         ]
     )
