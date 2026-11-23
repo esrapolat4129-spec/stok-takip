@@ -31,3 +31,13 @@ def urun_ekle(urunler: list[Urun], ad: str, stok: int, kritik_seviye: int) -> Ur
     urun = Urun(ad=ad, stok=stok, kritik_seviye=kritik_seviye)
     urunler.append(urun)
     return urun
+
+
+def kritik_mi(urun: Urun) -> bool:
+    """Stok kritik seviyeye eşit veya altındaysa True döner."""
+    return urun.stok <= urun.kritik_seviye
+
+
+def kritik_urunler(urunler: list[Urun]) -> list[Urun]:
+    """Stoğu kritik seviyede veya altında olan ürünleri döndürür."""
+    return [u for u in urunler if kritik_mi(u)]
