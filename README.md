@@ -45,7 +45,15 @@ pytest
 
 ### 2. Kritik stok uyarısı (#3)
 
-_Geliştirme devam ediyor._
+Stoğu kritik seviyeye **eşit veya altında** olan ürünler sayfanın üstünde sarı uyarı olarak
+gösterilir ve tabloda "Durum" sütununda `⚠️ Kritik` olarak işaretlenir.
+
+1. Ad `Vida M8`, stok `120`, kritik seviye `20` ile ekleyin.
+   → Uyarı **çıkmaz**, Durum: `✅ Yeterli`.
+2. Ad `Somun`, stok `3`, kritik seviye `10` ile ekleyin.
+   → Sayfanın üstünde "Somun kritik seviyede" uyarısı çıkar, Durum: `⚠️ Kritik`.
+3. Ad `Pul`, stok `10`, kritik seviye `10` ile ekleyin (sınır durumu: eşitlik).
+   → İkinci uyarı çıkar, Durum: `⚠️ Kritik`.
 
 ## Bilinen sınırlamalar
 
